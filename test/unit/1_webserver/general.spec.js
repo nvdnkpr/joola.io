@@ -20,7 +20,7 @@ describe("webserver-general", function () {
     request.get('http://localhost:40008', function (err, response, body) {
       if (err)
         return done(err);
-
+      console.log('VALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL', response.statusCode);
       expect(response.statusCode).to.equal(200);
       done();
     });
