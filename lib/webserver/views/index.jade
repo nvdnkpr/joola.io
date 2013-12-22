@@ -6,6 +6,9 @@ body
     .row
       include sidebar.jade
       #content.col-sm-11
+        
+        button#changeState Change to state 2
+        
         p joola.io is not configured, please start by adding a <a href="/manage/dataintegration/index">data source</a>
 
         div.widget.col-md-2.col-sm-2(style="text-align:center;")
@@ -189,3 +192,27 @@ body
   include footer.jade
   include ../public/js/lib/stats.js
   include ../public/js/lib/jquery/jquery.sparkline.min.js
+  script.
+    $('#changeState').on('click', function() {
+      var state;
+      if (window.location.hash == '' || window.location.hash == '#state/1') {
+        $('#changeState').text('Change to state 3');
+        window.location.hash = '#state/2';
+        state = joolaio.state.loadState2();
+      }
+      else if (window.location.hash == '#state/2') {
+        $('#changeState').text('Change to state 1');
+        window.location.hash = '#state/3';
+        state = joolaio.state.loadState3();
+      }
+
+      else if (window.location.hash == '#state/3') {
+        $('#changeState').text('Change to state 2');
+        window.location.hash = '#state/1';
+        state = joolaio.state.loadState1();
+      }
+    });
+      
+    $(window).on('hashchange', function() {
+      hashstate = joolaio.state.hashToState(window.location.hash);
+    });
